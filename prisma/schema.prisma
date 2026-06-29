@@ -1,0 +1,54 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+// 1. MODÈLE CATÉGORIE (Men, Women, Accessories...)
+model Category {
+  id        String    @id @default(cuid())
+  name      String    @unique
+  slug      String    @unique
+  products  Product[] // Une catégorie contient plusieurs produits
+  createdAt DateTime  @default(now())
+}
+
+model Product {
+  id          String         @id @default(cuid())
+  title       String
+  slug        String         @unique
+  price       Float
+  description String
+  sizes       String         
+  categoryId  String
+  
+  // Le champ relationnel doit s'appeler exactement comme ça :
+  category    Category       @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  
+  images      ProductImage[] 
+  reviews     Review[]       
+  createdAt   DateTime       @default(now())
+}
+
+
+// 3. MODÈLE IMAGES PRODUIT (Pour la galerie à miniatures)
+model ProductImage {
+  id        String   @id @default(cuid())
+  url       String   // Lien local (ex: "/images/hoodie-1.jpg") ou URL externe
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+// 4. MODÈLE AVIS CLIENTS (Pour la section Reviews)
+model Review {
+  id        String   @id @default(cuid())
+  rating    Int      // Note de 1 à 5
+  comment   String   // Message de l'avis
+  author    String   // Nom du client (ex: "Alex M.")
+  productId String
+  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+}
