@@ -12,8 +12,8 @@ import Footer from "@/components/Footer";
 import FadeIn from "@/components/FadeIn";
 import ShopTheLook from "@/components/ShopTheLook";
 
-// Force le rendu dynamique pour toujours afficher les derniers stocks SQLite
-export const revalidate = 0;
+// Le catalogue est rafraîchi après les actions admin et reste servi rapidement entre deux visites.
+export const revalidate = 60;
 const renderMedia = (imageUrl?: string | null, altText?: string) => {
   const url = imageUrl || "/categorie/vetement.png";
   const isVideo = url.match(/\.(mp4|webm|ogg)$/i);
@@ -22,10 +22,11 @@ const renderMedia = (imageUrl?: string | null, altText?: string) => {
     return (
       <video
         src={url}
-        autoPlay
+        preload="metadata"
         loop
         muted
         playsInline
+        poster="/categorie/vetement.png"
         className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
       />
     );
@@ -189,7 +190,7 @@ export default async function HomePage() {
                 alt="Mannequin"
                 fill
                 className="object-contain object-bottom scale-100 sm:scale-105"
-                priority
+                sizes="(max-width: 640px) 85vw, (max-width: 1024px) 45vw, 40vw"
               />
             </div>
 
