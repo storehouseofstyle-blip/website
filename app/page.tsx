@@ -22,6 +22,7 @@ const renderMedia = (imageUrl?: string | null, altText?: string) => {
     return (
       <video
         src={url}
+        autoPlay
         preload="metadata"
         loop
         muted
