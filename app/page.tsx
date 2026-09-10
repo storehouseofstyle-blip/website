@@ -92,8 +92,9 @@ export default async function HomePage() {
       <main>
         {/* SECTION 1 : HERO BANNER (Style minimaliste et impactant) */}
         <section className="relative isolate flex h-[100svh] items-center overflow-hidden bg-white">
-          <div className="absolute inset-0 z-10 flex items-center">
-            <div className="flex min-h-full w-full max-w-none flex-col justify-center bg-white/60 px-4 py-4 backdrop-blur-[2px] sm:px-6 sm:bg-white sm:py-6 lg:px-8">
+          <div className="absolute inset-0 z-10 flex items-center bg-white/60 backdrop-blur-[2px]">
+            <div className="mx-auto flex min-h-full w-full max-w-7xl flex-col justify-center px-4 sm:px-6 lg:px-8">
+              <div className="flex max-w-xl flex-col justify-center py-4 sm:py-6 sm:pr-8">
               <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight text-slate-900 mb-6 leading-none uppercase">
                 Le style en mouvement
               </h1>
@@ -108,6 +109,7 @@ export default async function HomePage() {
                   Découvrir la nouvelle collection
                   <ArrowDownIcon className="w-4 h-4" />
                 </Link>
+              </div>
               </div>
             </div>
           </div>
@@ -125,7 +127,7 @@ export default async function HomePage() {
               src="/man/man-princ5.png"
               alt="House of style new collection"
               fill
-              className="hidden object-cover object-center md:block"
+              className="hidden object-contain object-center md:block"
               priority
               sizes="(min-width: 768px) 100vw"
             />
