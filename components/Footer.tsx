@@ -30,7 +30,7 @@ export default function Footer() {
                 <span className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">Horaire</span>
                 <span className="font-medium text-sm"> Ouvert du Lundi au Samedi de 9h à 22h</span>
                 <span className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">Email</span>
-                <a href="mailto:contact@houseofstyle.com" className="text-xl sm:text-2xl font-bold flex items-center gap-3 hover:opacity-70 transition-opacity">
+                <a href="mailto:store.houseofstyle@gmail.com" className="text-xl sm:text-2xl font-bold flex items-center gap-3 hover:opacity-70 transition-opacity">
                   <span className="w-3 h-3 bg-black rounded-full inline-block"></span>
                   <span className="underline decoration-2 underline-offset-4">store.houseofstyle@gmail.com</span>
                 </a>
