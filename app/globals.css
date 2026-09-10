@@ -3,9 +3,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --font-jakarta: "Trebuchet MS", sans-serif;
-  --font-playfair: Georgia, serif;
-  --font-geist-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-jakarta: sans-serif;
+  --font-playfair: serif;
+  --font-geist-mono: monospace;
+  --font-inter: sans-serif;
 }
 
 @theme inline {
