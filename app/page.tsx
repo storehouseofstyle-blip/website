@@ -116,7 +116,7 @@ export default async function HomePage() {
           {/* Grande image d'ambiance à droite en mode desktop */}
           <div className="pointer-events-none absolute inset-0 z-0 md:inset-y-0 md:left-65 md:right-0">
             <Image
-              src="/man/man"
+              src="/man/man.jpg"
               alt="House of style new collection"
               fill
               className="object-cover object-[65%_center] md:hidden"
