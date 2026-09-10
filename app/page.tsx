@@ -91,13 +91,13 @@ export default async function HomePage() {
 
       <main>
         {/* SECTION 1 : HERO BANNER (Style minimaliste et impactant) */}
-        <section className="relative isolate flex h-[90vh] items-center overflow-hidden bg-white">
-          <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div className="flex max-w-xl flex-col bg-white/90 py-4 pr-6 backdrop-blur-[2px] sm:py-6 sm:pr-8">
+        <section className="relative isolate flex h-[100svh] items-center overflow-hidden bg-white">
+          <div className="absolute inset-0 z-10 flex items-center">
+            <div className="flex min-h-full w-full max-w-none flex-col justify-center bg-white/60 px-4 py-4 backdrop-blur-[2px] sm:px-6 sm:bg-white sm:py-6 lg:px-8">
               <h1 className="text-5xl sm:text-6xl font-extrabold tracking-tight text-slate-900 mb-6 leading-none uppercase">
                 Le style en mouvement
               </h1>
-              <p className="mb-8 max-w-lg text-base font-light leading-relaxed text-slate-500 sm:text-lg">
+              <p className="mb-8 max-w-lg text-base font-light leading-relaxed text-slate-700 sm:text-lg">
                 Des silhouettes essentielles, des coupes affirmées et des pièces pensées pour accompagner chaque mouvement. Découvrez une collection sincère, entre caractère et simplicité.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
@@ -112,13 +112,22 @@ export default async function HomePage() {
             </div>
           </div>
           {/* Grande image d'ambiance à droite en mode desktop */}
-          <div className="pointer-events-none absolute left-65 top-0 z-0 hidden h-full w-full md:block">
+          <div className="pointer-events-none absolute inset-0 z-0 md:inset-y-0 md:left-65 md:right-0">
+            <Image
+              src="/man/man"
+              alt="House of style new collection"
+              fill
+              className="object-cover object-[65%_center] md:hidden"
+              priority
+              sizes="100vw"
+            />
             <Image
               src="/man/man-princ5.png"
               alt="House of style new collection"
               fill
-              className="object-contain object-center"
+              className="hidden object-cover object-center md:block"
               priority
+              sizes="(min-width: 768px) 100vw"
             />
           </div>
         </section>
