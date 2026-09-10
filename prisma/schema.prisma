@@ -7,48 +7,162 @@ datasource db {
   url      = "file:./dev.db"
 }
 
-// 1. MODÈLE CATÉGORIE (Men, Women, Accessories...)
 model Category {
-  id        String    @id @default(cuid())
-  name      String    @unique
-  slug      String    @unique
-  products  Product[] // Une catégorie contient plusieurs produits
-  createdAt DateTime  @default(now())
+  id        String   @id @default(cuid())
+  name      String   @unique @map("nom")
+  slug      String   @unique
+  imageUrl  String?  @map("image_url")
+  types     Type[]
+  createdAt DateTime @default(now()) @map("cree_le")
+
+  @@map("categories")
+}
+
+model Type {
+  id         String    @id @default(cuid())
+  categoryId String    @map("categorie_id")
+  name       String    @map("nom")
+  slug       String    @unique
+  category   Category  @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  products   Product[]
+
+  @@map("types")
 }
 
 model Product {
-  id          String         @id @default(cuid())
-  title       String
-  slug        String         @unique
+  id          String           @id @default(cuid())
+  typeId      String           @map("type_id")
+  name        String           @map("nom")
+  slug        String           @unique
+  description String?
+  price       Float            @map("prix")
+  salePrice   Float?           @map("prix_promotionnel")
+  currency    String           @default("XOF") @map("devise")
+  gender      String?          @map("genre") // 'Homme', 'Femme', 'Unisexe'
+  type        Type             @relation(fields: [typeId], references: [id])
+  variants    ProductVariant[]
+  colors      ProductColor[]
+  sizes       ProductSize[]
+  media       Media[]
+  createdAt   DateTime         @default(now()) @map("cree_le")
+
+  @@map("produits")
+}
+
+model ProductVariant {
+  id        String  @id @default(cuid())
+  productId String  @map("produit_id")
+  colorId   String? @map("couleur_id")
+  sizeId    String? @map("taille_id")
+  sku       String? @unique
+  sizeOrCut String  @map("taille_coupe")
+  color     String? @map("couleur")
+  thumbnail String? @map("miniature")
+  stock     Int     @default(0)
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+  colorOption ProductColor? @relation(fields: [colorId], references: [id], onDelete: Cascade)
+  size      ProductSize? @relation(fields: [sizeId], references: [id], onDelete: Cascade)
+
+  @@index([productId, colorId, sizeId])
+
+  @@map("variantes_produit")
+}
+
+model ProductColor {
+  id        String           @id @default(cuid())
+  productId String           @map("produit_id")
+  name      String           @map("nom")
+  type      String           @default("HEX") @map("type") // HEX or IMAGE
+  value     String           @map("valeur") // Hex code or image URL
+  product   Product          @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variants  ProductVariant[]
+
+  @@unique([productId, name])
+  @@map("couleurs_article")
+}
+
+model ProductSize {
+  id        String           @id @default(cuid())
+  productId String           @map("produit_id")
+  label     String           @map("libelle")
+  product   Product          @relation(fields: [productId], references: [id], onDelete: Cascade)
+  variants  ProductVariant[]
+
+  @@unique([productId, label])
+  @@map("tailles_article")
+}
+
+model Media {
+  id        String  @id @default(cuid())
+  productId String  @map("produit_id")
+  url       String
+  isMain    Int     @default(0) @map("est_principale") // 0 or 1
+  order     Int     @default(0) @map("ordre")
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@map("media")
+}
+
+model Nouveaute {
+  id          String   @id @default(cuid())
+  name        String
   price       Float
-  description String
-  sizes       String         
-  categoryId  String
-  
-  // Le champ relationnel doit s'appeler exactement comme ça :
-  category    Category       @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  
-  images      ProductImage[] 
-  reviews     Review[]       
-  createdAt   DateTime       @default(now())
+  imageUrl    String
+  lining      String?
+  wearing     String?
+  height      String?
+  createdAt   DateTime @default(now())
+
+  @@map("nouveautes")
 }
 
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String   @map("mot_de_passe_hash")
+  name         String?  @map("nom")
+  createdAt    DateTime @default(now()) @map("cree_le")
 
-// 3. MODÈLE IMAGES PRODUIT (Pour la galerie à miniatures)
-model ProductImage {
-  id        String   @id @default(cuid())
-  url       String   // Lien local (ex: "/images/hoodie-1.jpg") ou URL externe
-  productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  @@map("utilisateurs_admin")
 }
 
-// 4. MODÈLE AVIS CLIENTS (Pour la section Reviews)
-model Review {
+model Customer {
   id        String   @id @default(cuid())
-  rating    Int      // Note de 1 à 5
-  comment   String   // Message de l'avis
-  author    String   // Nom du client (ex: "Alex M.")
-  productId String
-  product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
+  email     String   @unique
+  firstName String?  @map("prenom")
+  lastName  String?  @map("nom")
+  phone     String?  @map("telephone")
+  createdAt DateTime @default(now()) @map("cree_le")
+  orders    Order[]
+
+  @@map("clients")
+}
+
+model Order {
+  id           String      @id @default(cuid())
+  number       String      @unique @map("numero")
+  customerId   String?     @map("client_id")
+  status       String      @default("pending") @map("statut")
+  total        Float       @default(0) @map("total")
+  currency     String      @default("EUR") @map("devise")
+  shippingData String?     @map("donnees_livraison")
+  createdAt    DateTime    @default(now()) @map("cree_le")
+  customer     Customer?   @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  items        OrderItem[]
+
+  @@index([status])
+  @@index([createdAt])
+  @@map("commandes")
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String  @map("commande_id")
+  productId String? @map("produit_id")
+  name      String  @map("nom")
+  quantity  Int     @default(1)
+  unitPrice Float   @map("prix_unitaire")
+  order     Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  @@map("lignes_commande")
 }

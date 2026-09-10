@@ -1,101 +1,90 @@
 import Link from "next/link";
+import { ArrowRight } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
 
-  const footerLinks = [
-    {
-      title: "Aide",
-      links: ["Service client", "Guide des tailles", "Suivre ma commande", "Contact"],
-    },
-    {
-      title: "FAQ",
-      links: ["Paiements", "Livraison", "Retours & échanges", "Cartes cadeaux"],
-    },
-    {
-      title: "Ressources",
-      links: ["Politique de confidentialité", "Conditions générales", "Paramètres des cookies", "Plan du site"],
-    },
-  ];
-
   return (
-    <footer className="bg-slate-50 border-t border-slate-100 text-slate-600 text-sm mt-auto">
-      {/* Grille principale des liens */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 xl:gap-12">
-
-          {/* Colonne Identité */}
-          <div className="flex flex-col gap-4">
-            <img src="/logo2.png" alt="House of Style" width={36} height={36} />
-            <span className="text-slate-950 font-bold text-lg tracking-wide">House of Style</span>
-            <p className="text-xs text-slate-400 font-light leading-relaxed max-w-xs">
-              Expérience vestimentaire minimaliste haut de gamme. Créer des basiques raffinés pour une garde-robe contemporaine et intemporelle.
-            </p>
+    <footer className="mt-auto bg-[#111111] pt-20 text-white">
+      <div className="max-w-[80%] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 mb-20">
+          
+          {/* Left Section */}
+          <div className="flex flex-col justify-between">
+            <div>
+              <img src="/logo3.png" alt="" className="w-[170px] h-[150px]"/>
+              <p className="text-2xl sm:text-3xl font-medium tracking-tight leading-snug max-w-md mb-8">
+                Que vous cherchiez à renouveler votre garde-robe, affirmer votre style, ou trouver des pièces uniques, nous sommes là pour vous aider.
+              </p>
+            </div>
           </div>
 
-          {/* Cartographie dynamique des blocs de navigation */}
-          {footerLinks.map((block) => (
-            <div key={block.title} className="flex flex-col gap-4">
-              <h4 className="text-slate-950 font-bold uppercase tracking-wider text-xs">
-                {block.title}
-              </h4>
-              <ul className="flex flex-col gap-2.5 font-light text-slate-500">
-                {block.links.map((link) => {
-                  // mapping to known routes for translated pages
-                  const routeMap: Record<string, string> = {
-                    'Politique de confidentialité': '/politique-de-confidentialite',
-                    'Conditions générales': '/conditions-generales',
-                    'Paramètres des cookies': '/parametres-des-cookies',
-                    'Plan du site': '/plan-du-site',
-                    'Service client': '/service-client',
-                    'Contact': '/contact',
-                    'Guide des tailles': '/guide-des-tailles',
-                    'Suivre ma commande': '/suivre-ma-commande',
-                  };
-                  const href = routeMap[link] || `/${link.toLowerCase().replace(/ & /g, '-').replace(/ /g, '-')}`;
-
-                  return (
-                    <li key={link}>
-                      <Link href={href} className="hover:text-slate-950 transition-colors">
-                        {link}
-                      </Link>
-                    </li>
-                  );
-                })}
-              </ul>
+          {/* Right Section */}
+          <div className="flex flex-col gap-16 lg:ml-auto w-full lg:max-w-md">
+            <div>
+              <div className="flex flex-col gap-2">
+                <span className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">Téléphone</span>
+                <span className="font-medium text-sm">+229 01 67 91 79 24 / 01 65 02 66 55</span>
+                <span className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">Adresse</span>
+                <span className="font-medium text-sm">Porto-Novo, Bénin</span>
+                <span className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">Horaire</span>
+                <span className="font-medium text-sm"> Ouvert du Lundi au Samedi de 9h à 22h</span>
+                <span className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">Email</span>
+                <a href="mailto:contact@houseofstyle.com" className="text-xl sm:text-2xl font-bold flex items-center gap-3 hover:opacity-70 transition-opacity">
+                  <span className="w-3 h-3 bg-black rounded-full inline-block"></span>
+                  <span className="underline decoration-2 underline-offset-4">store.houseofstyle@gmail.com</span>
+                </a>
+              </div>
             </div>
-          ))}
-
-          {/* Colonne Contact (alignée avec les autres) */}
-          <div className="flex flex-col gap-2">
-            <h4 className="text-slate-950 font-bold uppercase tracking-wider text-xs">Contact</h4>
-            <div className="text-slate-600 text-sm">
-              <div>Tél : <a href="tel:+33123456789" className="hover:underline">+33 1 23 45 67 89</a></div>
-              <div>Email : <a href="mailto:contact@houseofstyle.example" className="hover:underline">contact@houseofstyle.example</a></div>
-              <div className="mt-2 text-xs">12 Rue de la Mode, 75001 Paris</div>
-              <div className="text-xs">Mar–Sam 10:30–19:00 — Dim 11:00–17:00</div>
-              <div className="mt-2 flex items-center gap-3 text-xs">
-                <a href="#" className="hover:underline">Instagram</a>
-                <a href="#" className="hover:underline">Facebook</a>
-                <a href="#" className="hover:underline">TikTok</a>
+            
+            <div className="flex gap-16 w-full">
+              <div className="flex flex-col gap-3">
+                <span className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">Navigation</span>
+                <Link href="/" className="text-sm font-medium hover:underline underline-offset-4">Accueil</Link>
+                <Link href="#collection" className="text-sm font-medium hover:underline underline-offset-4">Nouveautés</Link>
+                <Link href="#categories" className="text-sm font-medium hover:underline underline-offset-4">Catégories</Link>
+                <Link href="#" className="text-sm font-medium hover:underline underline-offset-4">Notre histoire</Link>
+              </div>
+              <div className="flex flex-col gap-3">
+                <span className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-slate-500">Réseaux</span>
+                <a href="#" className="text-sm font-medium flex items-center gap-1 hover:underline underline-offset-4 group">
+                  Facebook <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[10px]">↗</span>
+                </a>
+                <a href="#" className="text-sm font-medium flex items-center gap-1 hover:underline underline-offset-4 group">
+                  Instagram <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[10px]">↗</span>
+                </a>
+                <a href="#" className="text-sm font-medium flex items-center gap-1 hover:underline underline-offset-4 group">
+                  TikTok <span className="opacity-0 group-hover:opacity-100 transition-opacity text-[10px]">↗</span>
+                </a>
               </div>
             </div>
           </div>
+        </div>
 
+        {/* Big Typography */}
+        <div className="w-full flex flex-col mb-12 select-none pointer-events-none">
+          <div className="flex items-start">
+            <h1 className="text-[15vw] leading-none font-bold tracking-tighter">
+              houseofstyle
+            </h1>
+          </div>
         </div>
       </div>
 
-      {/* Ligne inférieure : Droits d'auteur & Modes de paiement */}
-      <div className=" bg-slate-100/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
-          <div className="flex flex-col sm:flex-row sm:items-center gap-2">
-            <div>
-              &copy; {currentYear} <span className="text-slate-600 font-medium">House of Style.</span> Tous droits réservés.
-            </div>
-            <div className="text-xs text-slate-400">• Réaliser par <a href="/a-propos#realisation" className="hover:underline">Charbel Mahougnon</a></div>
+      {/* Bottom Black Bar */}
+      <div className="border-t border-white/10 bg-[#111111] px-4 py-5 text-[10px] text-white sm:px-6 lg:px-8">
+        <div className="max-w-[80%] mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="text-slate-400 flex items-center gap-2">
+            © {currentYear} House of Style. Tous droits réservés.
           </div>
-          
-         
+          <div className="flex flex-wrap items-center justify-center sm:justify-end gap-6 text-slate-400">
+            <a href="/politique-de-confidentialite" className="hover:text-white transition-colors">Politique de confidentialité</a>
+            <a href="/conditions-generales" className="hover:text-white transition-colors">Conditions générales</a>
+            Le Site est édité par : 
+           <Link href="mailto:charbelmahougnon87@gmail.com" className="hover:text-white transition-colors ml-[-20px]">
+            Charbel Mahougnon
+           </Link>
+          </div>
         </div>
       </div>
     </footer>

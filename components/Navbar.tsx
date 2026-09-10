@@ -2,89 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { Heart, Menu, Search, X } from "lucide-react";
 import { useState } from "react";
-import { Search, ShoppingBag, Menu, X, Heart } from "lucide-react";
+import CartIndicator from "./CartIndicator";
+
+function SearchForm({ mobile = false }: { mobile?: boolean }) {
+  return <form action="/produits" method="get" className={`relative w-full ${mobile ? "mb-4 sm:hidden" : "max-w-[600px]"}`}><input type="search" name="q" placeholder={mobile ? "Rechercher..." : "Rechercher des articles..."} className={`w-full ${mobile ? "h-11 rounded-xl pl-11" : "h-10 rounded-full pl-10"} pr-4 bg-slate-50 border border-transparent text-sm text-slate-800 outline-none transition-all placeholder:text-slate-400 focus:border-slate-300 focus:bg-white`} /><Search className="absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" /></form>;
+}
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-
-  return (
-    <header className="w-full bg-white border-b border-slate-100 sticky top-0 z-50">
-      {/* Bandeau Promotionnel Supérieur 
-      <div className="w-full bg-slate-900 text-white text-center py-2 text-xs font-medium tracking-wider uppercase px-4">
-        Livraison offerte dès 75€ &bull; Retours gratuits
-      </div>*/}
-
-      {/* Barre de Navigation Principale */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-[auto_1fr_auto] items-center h-16 gap-4">
-          <div className="flex items-center gap-4">
-            {/* Menu Mobile Hamburger */}
-            <button
-              type="button"
-              onClick={() => setIsOpen(!isOpen)}
-              className="lg:hidden p-2 text-slate-600 hover:text-slate-900 transition-colors"
-            >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-            </button>
-
-            {/* LOGO */}
-            <Link href="/" className="flex items-center gap-3 shrink-0">
-              <Image src="/logo2.png" width={34} height={34} alt="House of Style" className="block" />
-            </Link>
-          </div>
-
-          <div className="hidden sm:flex justify-center">
-            <div className="relative w-full max-w-[600px]">
-              <input
-                type="text"
-                placeholder="Rechercher des produits..."
-                className="w-full h-10 pl-10 pr-4 rounded-full bg-slate-50 border border-transparent text-sm focus:bg-white focus:border-slate-300 outline-none transition-all placeholder:text-slate-400 text-slate-800"
-              />
-              <Search className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
-            </div>
-          </div>
-
-          <div className="flex items-center justify-end gap-2 sm:gap-4">
-            <nav className="hidden lg:flex items-center gap-8 text-sm font-medium tracking-wide uppercase text-slate-600">
-              <Link href="/collections/men" className="hover:text-slate-950 transition-colors">Homme</Link>
-              <Link href="/collections/women" className="hover:text-slate-950 transition-colors">Femme</Link>
-              <Link href="/brands" className="hover:text-slate-950 transition-colors">Marques</Link>
-            </nav>
-
-            {/* Favoris */}
-            <button className="p-2.5 text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-full transition-all shrink-0">
-              <Heart className="w-5 h-5" />
-            </button>
-
-            {/* Panier Interactif */}
-            <Link href="/panier" className="p-2.5 text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-full transition-all flex items-center gap-1.5 shrink-0 relative">
-              <ShoppingBag className="w-5 h-5" />
-              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-slate-950 text-white rounded-full text-[10px] font-bold flex items-center justify-center">
-                0
-              </span>
-            </Link>
-          </div>
-        </div>
-      </div>
-
-      {/* MENU MOBILE DÉROULANT */}
-      <div className={`${isOpen ? "block" : "hidden"} lg:hidden border-t border-slate-100 bg-white px-4 py-6 space-y-4 shadow-inner`}>
-        {/* Recherche sur Mobile */}
-        <div className="relative w-full sm:hidden mb-4">
-          <input
-            type="text"
-            placeholder="Rechercher..."
-            className="w-full h-11 pl-11 pr-4 rounded-xl bg-slate-50 border border-transparent text-sm outline-none text-slate-800"
-          />
-          <Search className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
-        </div>
-        <nav className="flex flex-col gap-4 font-semibold uppercase tracking-wide text-slate-700 text-sm">
-          <Link href="/collections/men" onClick={() => setIsOpen(false)} className="py-2 border-b border-slate-50">Homme</Link>
-          <Link href="/collections/women" onClick={() => setIsOpen(false)} className="py-2 border-b border-slate-50">Femme</Link>
-          <Link href="/brands" onClick={() => setIsOpen(false)} className="py-2">Marques</Link>
-        </nav>
-      </div>
-    </header>
-  );
+  return <header className="sticky top-0 z-50 w-full border-b border-slate-100 bg-white"><div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"><div className="grid h-16 grid-cols-[auto_1fr_auto] items-center gap-4"><div className="flex items-center gap-4"><button type="button" onClick={() => setIsOpen(!isOpen)} aria-expanded={isOpen} aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"} className="rounded-full p-3 text-slate-600 hover:bg-slate-100 lg:hidden">{isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}</button><Link href="/" className="shrink-0"><Image src="/logo2.png" width={34} height={34} alt="House of Style" /></Link></div><div className="hidden justify-center sm:flex"><SearchForm /></div><div className="flex items-center justify-end gap-2 sm:gap-4"><nav className="hidden items-center gap-8 text-sm font-medium uppercase tracking-wide text-slate-600 lg:flex"><Link href="/produits?genre=Homme" className="hover:text-slate-950">Homme</Link><Link href="/produits?genre=Femme" className="hover:text-slate-950">Femme</Link><Link href="/produits" className="hover:text-slate-950">Collection</Link></nav><Link href="/favoris" aria-label="Voir mes favoris" title="Mes favoris" className="shrink-0 rounded-full p-2.5 text-slate-600 hover:bg-slate-50 hover:text-slate-900"><Heart className="h-5 w-5" /></Link><CartIndicator /></div></div></div><div className={`${isOpen ? "block" : "hidden"} fixed inset-x-0 top-16 z-40 space-y-4 border-t border-slate-100 bg-white px-4 py-6 shadow-inner lg:hidden`}><SearchForm mobile /><nav className="flex flex-col gap-4 text-sm font-semibold uppercase tracking-wide text-slate-700"><Link href="/produits?genre=Homme" onClick={() => setIsOpen(false)} className="border-b border-slate-50 py-2">Homme</Link><Link href="/produits?genre=Femme" onClick={() => setIsOpen(false)} className="border-b border-slate-50 py-2">Femme</Link><Link href="/favoris" onClick={() => setIsOpen(false)} className="border-b border-slate-50 py-2">Mes favoris</Link><Link href="/produits" onClick={() => setIsOpen(false)} className="py-2">Collection</Link></nav></div></header>;
 }

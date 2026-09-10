@@ -3,14 +3,17 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --font-jakarta: "Trebuchet MS", sans-serif;
+  --font-playfair: Georgia, serif;
+  --font-geist-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-jakarta);
-  --font-serif: var(--font-playfair);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-jakarta), sans-serif;
+  --font-serif: var(--font-playfair), serif;
+  --font-mono: var(--font-geist-mono), monospace;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -19,22 +22,40 @@
     --foreground: #ededed;
   }
 }
-@theme {
-  /* Associe font-sans à notre police Plus Jakarta Sans */
-  --font-sans: var(--font-jakarta), sans-serif;
-
-  /* Associe font-serif à notre police Playfair Display */
-  --font-serif: var(--font-playfair), serif;
-  
-  /* Associe font-mono à notre police Geist Mono (parfait pour les prix) */
-  --font-mono: var(--font-mono), monospace;
-}
-
-
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-jakarta), sans-serif;
+}
+
+.shop-the-look-track {
+  will-change: transform;
+  scroll-behavior: smooth;
+}
+
+.shop-the-look-track::-webkit-scrollbar {
+  display: none;
+}
+
+.new-arrivals-section .aspect-\[4\/5\],
+.new-arrivals-section .min-h-\[420px\],
+.new-arrivals-section .min-h-\[620px\] {
+  border-radius: 0.75rem;
+}
+
+.new-arrivals-section .mt-20 {
+  margin-top: 7rem;
+}
+
+@media (min-width: 1024px) {
+  .new-arrivals-section .mt-8 > div:last-child {
+    margin-top: 3rem;
+  }
+
+  .new-arrivals-section .mt-8 > div:last-child > a {
+    width: 78%;
+    margin-inline: auto;
+  }
 }
 
 h1,
