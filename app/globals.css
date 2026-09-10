@@ -3,16 +3,14 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --font-inter: sans-serif;
-  --font-playfair: serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-inter), sans-serif;
-  --font-serif: var(--font-playfair), serif;
-  --font-mono: var(--font-inter), sans-serif;
+  --font-sans: var(--font-jakarta);
+  --font-serif: var(--font-playfair);
+  --font-mono: var(--font-geist-mono);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -21,10 +19,22 @@
     --foreground: #ededed;
   }
 }
+@theme {
+  /* Associe font-sans à notre police Plus Jakarta Sans */
+  --font-sans: var(--font-jakarta), sans-serif;
+
+  /* Associe font-serif à notre police Playfair Display */
+  --font-serif: var(--font-playfair), serif;
+  
+  /* Associe font-mono à notre police Geist Mono (parfait pour les prix) */
+  --font-mono: var(--font-mono), monospace;
+}
+
+
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-inter), sans-serif;
+  font-family: var(--font-jakarta), sans-serif;
 }
 
 .shop-the-look-track {

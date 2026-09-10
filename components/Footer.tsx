@@ -64,7 +64,7 @@ export default function Footer() {
         {/* Big Typography */}
         <div className="w-full flex flex-col mb-12 select-none pointer-events-none">
           <div className="flex items-start">
-            <h1 className="font-serif text-[15vw] leading-none font-bold tracking-tighter">
+            <h1 className="text-[15vw] leading-none font-bold tracking-tighter">
               houseofstyle
             </h1>
           </div>
